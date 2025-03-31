@@ -1,5 +1,6 @@
 # Ignore environment variable files
 .env
+.json
 
 # Ignore Python compiled files and cache
 __pycache__/
