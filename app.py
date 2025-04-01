@@ -19,6 +19,11 @@ if __name__ == "__main__":
     print("Scheduler started. Flask app running on http://localhost:5000")
     app.run(host='0.0.0.0', port=5000, debug=True)
 
+def test_job():
+    print("Test job executed: Scheduler is running!")
+
+scheduler.add_job(test_job, 'date', run_date=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
+
 # Load environment variables from the .env file
 load_dotenv()
 
