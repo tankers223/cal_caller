@@ -44,6 +44,29 @@ app.secret_key = FLASK_SECRET_KEY
 # Create the scheduler globally so all functions can access it.
 scheduler = BackgroundScheduler(timezone="UTC")
 
+import datetime
+import logging
+from apscheduler.schedulers.background import BackgroundScheduler
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def test_job():
+    logger.info("Test job executed: Scheduler is running!")
+
+# Create and configure the scheduler
+scheduler = BackgroundScheduler(timezone="UTC")
+scheduler.add_job(test_job, 'date', run_date=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
+
+if __name__ == "__main__":
+    scheduler.start()
+    logger.info("Scheduler started successfully!")
+    # Keep the main thread alive to let the job run
+    import time
+    while True:
+        time.sleep(1)
+
+
 # ----- Google Calendar Functions -----
 def get_credentials():
     """Load Google Calendar API credentials from token.json."""
@@ -175,3 +198,4 @@ if __name__ == "__main__":
     scheduler.start()
     logger.info(f"Scheduler started. Flask app running on http://0.0.0.0:{port}")
     app.run(host='0.0.0.0', port=port, debug=True)
+
