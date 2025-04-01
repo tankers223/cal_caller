@@ -8,6 +8,16 @@ from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from twilio.rest import Client
 from dotenv import load_dotenv
+from apscheduler.schedulers.background import BackgroundScheduler
+
+# Create the scheduler globally
+scheduler = BackgroundScheduler(timezone="UTC")
+
+if __name__ == "__main__":
+    # Start the scheduler (it's already created globally)
+    scheduler.start()
+    print("Scheduler started. Flask app running on http://localhost:5000")
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
 # Load environment variables from the .env file
 load_dotenv()
