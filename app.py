@@ -24,6 +24,17 @@ def test_job():
 
 scheduler.add_job(test_job, 'date', run_date=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
 
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def test_job():
+    logger.info("Test job executed: Scheduler is running!")
+
+import datetime
+scheduler.add_job(test_job, 'date', run_date=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
+
+
 # Load environment variables from the .env file
 load_dotenv()
 
