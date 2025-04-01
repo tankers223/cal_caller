@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendar Caller App</title>
+</head>
+<body>
+  <h1>Calendar Caller App</h1>
+  
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul style="color: red;">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  
+  <h2>Upcoming Events</h2>
+  {% if events %}
+    <ul>
+      {% for event in events %}
+        <li>
+          <strong>{{ event.summary }}</strong><br>
+          Start: {{ event.start.dateTime or event.start.date }}<br>
+          Description: {{ event.description }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No upcoming events found.</p>
+  {% endif %}
+  
+  <br>
+  <a href="{{ url_for('force_check') }}">Force Calendar Check</a>
+</body>
+</html>
