@@ -34,6 +34,12 @@ def test_job():
 import datetime
 scheduler.add_job(test_job, 'date', run_date=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
 
+if __name__ == "__main__":
+    scheduler.start()
+    # For testing only:
+    initiate_call("8652217266", "Test Event")
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
+
 
 # Load environment variables from the .env file
 load_dotenv()
