@@ -12,6 +12,24 @@ from dotenv import load_dotenv
 # Load environment variables from the .env file
 load_dotenv()
 
+import os
+import json
+
+token_data = os.environ.get('GOOGLE_OAUTH_TOKEN')
+if token_data:
+    # Optionally verify it's valid JSON
+    try:
+        token_json = json.loads(token_data)
+        # Write the token to a file, if necessary
+        with open('token.json', 'w') as f:
+            json.dump(token_json, f)
+        print("token.json created from environment variable.")
+    except json.JSONDecodeError:
+        print("Invalid JSON for GOOGLE_OAUTH_TOKEN")
+else:
+    print("GOOGLE_OAUTH_TOKEN not set!")
+
+
 # Retrieve configuration from environment variables
 TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
